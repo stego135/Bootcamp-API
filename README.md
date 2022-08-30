@@ -1,3 +1,3 @@
 # Bootcamp-API
 
-test
+This is the API for the bootcamp project.
