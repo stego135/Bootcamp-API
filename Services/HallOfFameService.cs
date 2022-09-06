@@ -10,18 +10,18 @@ public static class HallOfFameService
     {
         Shiny = new List<Pokemon>
         {
-            new Pokemon {id = 1, name = "Raticate", count = 3, userId = 1},
-            new Pokemon {id = 2, name = "Audino", count = 4914, userId = 1}
+            new Pokemon {Id = 1, Name = "Raticate", Count = 3, UserId = 1},
+            new Pokemon {Id = 2, Name = "Audino", Count = 4914, UserId = 1}
         };
     }
 
     public static List<Pokemon> GetAll() => Shiny;
 
-    public static Pokemon? Get(int id) => Shiny.FirstOrDefault(p => p.id == id);
+    public static Pokemon? Get(int id) => Shiny.FirstOrDefault(p => p.Id == id);
 
     public static void Add(Pokemon pokemon)
     {
-        pokemon.id = nextId++;
+        pokemon.Id = nextId++;
         Shiny.Add(pokemon);
     }
 
@@ -36,7 +36,7 @@ public static class HallOfFameService
 
     public static void Update(Pokemon pokemon)
     {
-        var index = Shiny.FindIndex(p => p.id == pokemon.id);
+        var index = Shiny.FindIndex(p => p.Id == pokemon.Id);
         if(index == -1)
             return;
 

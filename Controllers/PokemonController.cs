@@ -49,7 +49,7 @@ public class PokemonController : ControllerBase
     public IActionResult Create(Pokemon pokemon)
     {            
         PokemonService.Add(pokemon);
-        return CreatedAtAction(nameof(Create), new { id = pokemon.id }, pokemon);
+        return CreatedAtAction(nameof(Create), new { id = pokemon.Id }, pokemon);
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class PokemonController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Update(int id, Pokemon pokemon)
     {
-        if (id != pokemon.id)
+        if (id != pokemon.Id)
             return BadRequest();
            
         var existingPokemon = PokemonService.Get(id);

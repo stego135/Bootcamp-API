@@ -10,18 +10,18 @@ public static class UserService
     {
         Users = new List<User>
         {
-            new User {id = 1, email = "test@test.com", password = "test"},
-            new User {id = 2, email = "testing@test.com", password = "a"}
+            new User {Id = 1, Email = "test@test.com", Password = "test"},
+            new User {Id = 2, Email = "testing@test.com", Password = "a"}
         };
     }
 
     public static List<User> GetAll() => Users;
 
-    public static User? Get(int id) => Users.FirstOrDefault(p => p.id == id);
+    public static User? Get(int id) => Users.FirstOrDefault(p => p.Id == id);
 
     public static void Add(User user)
     {
-        user.id = nextId++;
+        user.Id = nextId++;
         Users.Add(user);
     }
 
@@ -36,7 +36,7 @@ public static class UserService
 
     public static void Update(User user)
     {
-        var index = Users.FindIndex(u => u.id == user.id);
+        var index = Users.FindIndex(u => u.Id == user.Id);
         if(index == -1)
             return;
 

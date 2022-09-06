@@ -10,18 +10,18 @@ public static class PokemonService
     {
         Pokemon = new List<Pokemon>
         {
-            new Pokemon {id = 1, name = "Venusaur", count = 400, userId = 1},
-            new Pokemon {id = 2, name = "Oshawott", count = 24, userId = 1}
+            new Pokemon {Id = 1, Name = "Venusaur", Count = 400, UserId = 1},
+            new Pokemon {Id = 2, Name = "Oshawott", Count = 24, UserId = 1}
         };
     }
 
     public static List<Pokemon> GetAll() => Pokemon;
 
-    public static Pokemon? Get(int id) => Pokemon.FirstOrDefault(p => p.id == id);
+    public static Pokemon? Get(int id) => Pokemon.FirstOrDefault(p => p.Id == id);
 
     public static void Add(Pokemon pokemon)
     {
-        pokemon.id = nextId++;
+        pokemon.Id = nextId++;
         Pokemon.Add(pokemon);
     }
 
@@ -36,7 +36,7 @@ public static class PokemonService
 
     public static void Update(Pokemon pokemon)
     {
-        var index = Pokemon.FindIndex(p => p.id == pokemon.id);
+        var index = Pokemon.FindIndex(p => p.Id == pokemon.Id);
         if(index == -1)
             return;
 

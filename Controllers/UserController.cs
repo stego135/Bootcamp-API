@@ -49,7 +49,7 @@ public class UserController : ControllerBase
     public IActionResult Create(User user)
     {            
         UserService.Add(user);
-        return CreatedAtAction(nameof(Create), new { id = user.id }, user);
+        return CreatedAtAction(nameof(Create), new { id = user.Id }, user);
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Update(int id, User user)
     {
-        if (id != user.id)
+        if (id != user.Id)
             return BadRequest();
            
         var existingUser = UserService.Get(id);
