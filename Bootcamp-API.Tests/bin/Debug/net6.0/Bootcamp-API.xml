@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bootcamp-API</name>
+    </assembly>
+    <members>
+        <member name="M:Bootcamp_API.Controllers.HallOfFameController.GetAll">
+            <summary>
+            Returns all Pokemon stored in the Hall of Fame
+            </summary>
+            <returns>All Pokemon in Hall of Fame</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.HallOfFameController.Get(System.Int32)">
+            <summary>
+            Returns a single Pokemon with the id provided
+            </summary>
+            <param name="id">The id of the Pokemon desired</param>
+            <returns>The Pokemon that has the id specified</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.HallOfFameController.Create(Bootcamp_API.Models.Pokemon)">
+            <summary>
+            Creates a new Pokemon to be stored in the Hall of Fame
+            </summary>
+            <returns>A response of success if added</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.HallOfFameController.Update(System.Int32,Bootcamp_API.Models.Pokemon)">
+            <summary>
+            Updates a Pokemon in the Hall of Fame
+            </summary>
+            <param name="id">The id of the Pokemon to be updated</param>
+            <returns>An empty response if successful</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.HallOfFameController.Delete(System.Int32)">
+            <summary>
+            Deletes a Pokemon in the Hall of Fame
+            </summary>
+            <param name="id">The id of the Pokemon to be deleted</param>
+            <returns>An empty response if successful</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.PokemonController.GetAll">
+            <summary>
+            Returns all Pokemon stored in the Pokemon list
+            </summary>
+            <returns>All Pokemon in the Pokemon list</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.PokemonController.Get(System.Int32)">
+            <summary>
+            Returns a single Pokemon with the id provided
+            </summary>
+            <param name="id">The id of the Pokemon desired</param>
+            <returns>The Pokemon that has the id specified</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.PokemonController.Create(Bootcamp_API.Models.Pokemon)">
+            <summary>
+            Creates a new Pokemon to be stored in the Pokemon list
+            </summary>
+            <returns>A response of success if added</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.PokemonController.Update(System.Int32,Bootcamp_API.Models.Pokemon)">
+            <summary>
+            Updates a Pokemon in the Pokemon list
+            </summary>
+            <param name="id">The id of the Pokemon to be updated</param>
+            <returns>An empty response if successful</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.PokemonController.Delete(System.Int32)">
+            <summary>
+            Deletes a Pokemon in the Pokemon list
+            </summary>
+            <param name="id">The id of the Pokemon to be deleted</param>
+            <returns>An empty response if successful</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.UserController.GetAll">
+            <summary>
+            Returns all users stored in the Users list
+            </summary>
+            <returns>All users in the User list</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.UserController.Get(System.Int32)">
+            <summary>
+            Returns a single user with the id provided
+            </summary>
+            <param name="id">The id of the user desired</param>
+            <returns>The user that has the id specified</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.UserController.Create(Bootcamp_API.Models.User)">
+            <summary>
+            Creates a new user to be stored in the Users list
+            </summary>
+            <returns>A response of success if added</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.UserController.Update(System.Int32,Bootcamp_API.Models.User)">
+            <summary>
+            Updates a user in the Users list
+            </summary>
+            <param name="id">The id of the user to be updated</param>
+            <returns>An empty response if successful</returns>
+        </member>
+        <member name="M:Bootcamp_API.Controllers.UserController.Delete(System.Int32)">
+            <summary>
+            Deletes a user in the Users list
+            </summary>
+            <param name="id">The id of the user to be deleted</param>
+            <returns>An empty response if successful</returns>
+        </member>
+    </members>
+</doc>
