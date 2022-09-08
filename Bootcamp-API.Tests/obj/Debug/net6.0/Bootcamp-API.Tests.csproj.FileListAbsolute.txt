@@ -111,3 +111,7 @@ C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\De
 C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\Debug\net6.0\Bootcamp-API.dll
 C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\Debug\net6.0\Bootcamp-API.pdb
 C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\Debug\net6.0\Bootcamp-API.xml
+C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\Debug\net6.0\FluentAssertions.dll
+C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\fbecker\GitProjects\Bootcamp-API\Bootcamp-API\Bootcamp-API.Tests\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
