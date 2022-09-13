@@ -9,8 +9,11 @@ namespace Bootcamp_API.Controllers;
 [Route("[controller]")]
 public class HallOfFameController : ControllerBase
 {
-    public HallOfFameController()
+    HallOfFameService _service;
+
+    public HallOfFameController(HallOfFameService service)
     {
+        _service = service;
     }
 
     /// <summary>
@@ -19,8 +22,8 @@ public class HallOfFameController : ControllerBase
     /// <returns>All Pokemon in Hall of Fame</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<List<Pokemon>> GetAll() =>
-        HallOfFameService.GetAll();
+    public ActionResult<List<Shiny>> GetAll() =>
+        _service.GetAll();
 
     /// <summary>
     /// Returns a single Pokemon with the id provided
@@ -30,9 +33,9 @@ public class HallOfFameController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Pokemon> Get(int id)
+    public ActionResult<Shiny> Get(int id)
     {
-        var pokemon = HallOfFameService.Get(id);
+        var pokemon = _service.Get(id);
 
         if(pokemon == null)
             return NotFound();
@@ -47,9 +50,9 @@ public class HallOfFameController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Create(Pokemon pokemon)
+    public IActionResult Create(Shiny pokemon)
     {            
-        HallOfFameService.Add(pokemon);
+        _service.Add(pokemon);
         return CreatedAtAction(nameof(Create), new { id = pokemon.Id }, pokemon);
     }
 
@@ -62,16 +65,16 @@ public class HallOfFameController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult Update(int id, Pokemon pokemon)
+    public IActionResult Update(int id, Shiny pokemon)
     {
         if (id != pokemon.Id)
             return BadRequest();
            
-        var existingPokemon = HallOfFameService.Get(id);
+        var existingPokemon = _service.Get(id);
         if(existingPokemon is null)
             return NotFound();
    
-        HallOfFameService.Update(pokemon);           
+        _service.Update(pokemon);           
    
         return NoContent();
     }
@@ -86,12 +89,12 @@ public class HallOfFameController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Delete(int id)
     {
-        var pokemon = HallOfFameService.Get(id);
+        var pokemon = _service.Get(id);
    
         if (pokemon is null)
             return NotFound();
        
-        HallOfFameService.Delete(id);
+        _service.Delete(id);
    
         return NoContent();
     }

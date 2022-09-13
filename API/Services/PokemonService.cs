@@ -1,45 +1,53 @@
 using Bootcamp_API.Models;
+using Bootcamp_API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bootcamp_API.Services;
 
-public static class PokemonService
+public class PokemonService
 {
-    static List<Pokemon> Pokemon { get; }
-    static int nextId = 3;
-    static PokemonService()
+    private readonly PokemonContext _context;
+
+    public PokemonService(PokemonContext context)
     {
-        Pokemon = new List<Pokemon>
+        _context = context;
+    }
+
+    public List<Pokemon> GetAll()
+    {
+        return _context.Pokemon.ToList();
+    }
+
+    public Pokemon? Get(int id)
+    {
+        return _context.Pokemon.SingleOrDefault(p => p.Id == id);
+    }
+
+    public Pokemon Add(Pokemon pokemon)
+    {
+        _context.Pokemon.Add(pokemon);
+        _context.SaveChanges();
+
+        return pokemon;
+    }
+
+    public void Delete(int id)
+    {
+        var pokemonToDelete = _context.Pokemon.Find(id);
+        if (pokemonToDelete is not null)
         {
-            new Pokemon {Id = 1, Name = "Venusaur", Count = 400, UserId = 1},
-            new Pokemon {Id = 2, Name = "Oshawott", Count = 24, UserId = 1}
-        };
+            _context.Pokemon.Remove(pokemonToDelete);
+            _context.SaveChanges();
+        }
     }
 
-    public static List<Pokemon> GetAll() => Pokemon;
-
-    public static Pokemon? Get(int id) => Pokemon.FirstOrDefault(p => p.Id == id);
-
-    public static void Add(Pokemon pokemon)
+    public void Update(Pokemon pokemon)
     {
-        pokemon.Id = nextId++;
-        Pokemon.Add(pokemon);
-    }
+        var existingPokemon = _context.Pokemon.SingleOrDefault(p => p.Id == pokemon.Id);
+        existingPokemon.Name = pokemon.Name;
+        existingPokemon.Count = pokemon.Count;
+        existingPokemon.UserId = pokemon.UserId;
 
-    public static void Delete(int id)
-    {
-        var pokemon = Get(id);
-        if(pokemon is null)
-            return;
-
-        Pokemon.Remove(pokemon);
-    }
-
-    public static void Update(Pokemon pokemon)
-    {
-        var index = Pokemon.FindIndex(p => p.Id == pokemon.Id);
-        if(index == -1)
-            return;
-
-        Pokemon[index] = pokemon;
+        _context.SaveChanges();
     }
 }

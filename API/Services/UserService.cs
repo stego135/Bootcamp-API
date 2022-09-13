@@ -1,45 +1,52 @@
 using Bootcamp_API.Models;
+using Bootcamp_API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bootcamp_API.Services;
 
-public static class UserService
+public class UserService
 {
-    static List<User> Users { get; }
-    static int nextId = 3;
-    static UserService()
+    private readonly PokemonContext _context;
+
+    public UserService(PokemonContext context)
     {
-        Users = new List<User>
+        _context = context;
+    }
+
+    public List<User> GetAll()
+    {
+        return _context.Users.ToList();
+    }
+
+    public User? Get(int id)
+    {
+        return _context.Users.SingleOrDefault(p => p.Id == id);
+    }
+
+    public User Add(User user)
+    {
+        _context.Users.Add(user);
+        _context.SaveChanges();
+
+        return user;
+    }
+
+    public void Delete(int id)
+    {
+        var userToDelete = _context.Users.Find(id);
+        if (userToDelete is not null)
         {
-            new User {Id = 1, Email = "test@test.com", Password = "test"},
-            new User {Id = 2, Email = "testing@test.com", Password = "a"}
-        };
+            _context.Users.Remove(userToDelete);
+            _context.SaveChanges();
+        }
     }
 
-    public static List<User> GetAll() => Users;
-
-    public static User? Get(int id) => Users.FirstOrDefault(p => p.Id == id);
-
-    public static void Add(User user)
+    public void Update(User user)
     {
-        user.Id = nextId++;
-        Users.Add(user);
-    }
+        var existingUser = _context.Users.SingleOrDefault(p => p.Id == user.Id);
+        existingUser.Email = user.Email;
+        existingUser.Password = user.Password;
 
-    public static void Delete(int id)
-    {
-        var user = Get(id);
-        if(user is null)
-            return;
-
-        Users.Remove(user);
-    }
-
-    public static void Update(User user)
-    {
-        var index = Users.FindIndex(u => u.Id == user.Id);
-        if(index == -1)
-            return;
-
-        Users[index] = user;
+        _context.SaveChanges();
     }
 }
