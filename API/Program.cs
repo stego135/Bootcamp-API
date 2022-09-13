@@ -3,6 +3,7 @@ using Swashbuckle.AspNetCore;
 using System.Reflection;
 using Bootcamp_API.Data;
 using Microsoft.EntityFrameworkCore;
+using Bootcamp_API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,10 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services
     .AddEntityFrameworkSqlServer()
     .AddDbContext<PokemonContext>(p => p.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PokemonDB;"));
+
+builder.Services.AddScoped<PokemonService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<HallOfFameService>();
 
 var app = builder.Build();
 
