@@ -1,45 +1,53 @@
 using Bootcamp_API.Models;
+using Bootcamp_API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bootcamp_API.Services;
 
-public static class HallOfFameService
+public class HallOfFameService
 {
-    static List<Pokemon> Shiny { get; }
-    static int nextId = 3;
-    static HallOfFameService()
+    private readonly PokemonContext _context;
+
+    public HallOfFameService(PokemonContext context)
     {
-        Shiny = new List<Pokemon>
+        _context = context;
+    }
+
+    public List<Shiny> GetAll()
+    {
+        return _context.Shinies.ToList();
+    }
+
+    public Shiny? Get(int id)
+    {
+        return _context.Shinies.SingleOrDefault(p => p.Id == id);
+    }
+
+    public Shiny Add(Shiny shiny)
+    {
+        _context.Shinies.Add(shiny);
+        _context.SaveChanges();
+
+        return shiny;
+    }
+
+    public void Delete(int id)
+    {
+        var shinyToDelete = _context.Shinies.Find(id);
+        if (shinyToDelete is not null)
         {
-            new Pokemon {Id = 1, Name = "Raticate", Count = 3, UserId = 1},
-            new Pokemon {Id = 2, Name = "Audino", Count = 4914, UserId = 1}
-        };
+            _context.Shinies.Remove(shinyToDelete);
+            _context.SaveChanges();
+        }
     }
 
-    public static List<Pokemon> GetAll() => Shiny;
-
-    public static Pokemon? Get(int id) => Shiny.FirstOrDefault(p => p.Id == id);
-
-    public static void Add(Pokemon pokemon)
+    public void Update(Shiny shiny)
     {
-        pokemon.Id = nextId++;
-        Shiny.Add(pokemon);
-    }
+        var existingShiny = _context.Shinies.SingleOrDefault(p => p.Id == shiny.Id);
+        existingShiny.Name = shiny.Name;
+        existingShiny.Count = shiny.Count;
+        existingShiny.UserId = shiny.UserId;
 
-    public static void Delete(int id)
-    {
-        var pokemon = Get(id);
-        if(pokemon is null)
-            return;
-
-        Shiny.Remove(pokemon);
-    }
-
-    public static void Update(Pokemon pokemon)
-    {
-        var index = Shiny.FindIndex(p => p.Id == pokemon.Id);
-        if(index == -1)
-            return;
-
-        Shiny[index] = pokemon;
+        _context.SaveChanges();
     }
 }

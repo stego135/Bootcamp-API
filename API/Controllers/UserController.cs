@@ -8,8 +8,11 @@ namespace Bootcamp_API.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    public UserController()
+    UserService _service;
+
+    public UserController(UserService service)
     {
+        _service = service;
     }
 
     /// <summary>
@@ -19,7 +22,7 @@ public class UserController : ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<List<User>> GetAll() =>
-        UserService.GetAll();
+        _service.GetAll();
 
     /// <summary>
     /// Returns a single user with the id provided
@@ -31,7 +34,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<User> Get(int id)
     {
-        var user = UserService.Get(id);
+        var user = _service.Get(id);
 
         if(user == null)
             return NotFound();
@@ -48,7 +51,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Create(User user)
     {            
-        UserService.Add(user);
+        _service.Add(user);
         return CreatedAtAction(nameof(Create), new { id = user.Id }, user);
     }
 
@@ -66,11 +69,11 @@ public class UserController : ControllerBase
         if (id != user.Id)
             return BadRequest();
            
-        var existingUser = UserService.Get(id);
+        var existingUser = _service.Get(id);
         if(existingUser is null)
             return NotFound();
    
-        UserService.Update(user);           
+        _service.Update(user);           
    
         return NoContent();
     }
@@ -85,12 +88,12 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Delete(int id)
     {
-        var user = UserService.Get(id);
+        var user = _service.Get(id);
    
         if (user is null)
             return NotFound();
        
-        UserService.Delete(id);
+        _service.Delete(id);
    
         return NoContent();
     }

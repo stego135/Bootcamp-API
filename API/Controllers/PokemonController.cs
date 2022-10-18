@@ -8,8 +8,11 @@ namespace Bootcamp_API.Controllers;
 [Route("[controller]")]
 public class PokemonController : ControllerBase
 {
-    public PokemonController()
+    PokemonService _service;
+
+    public PokemonController(PokemonService service)
     {
+        _service = service;
     }
 
     /// <summary>
@@ -19,7 +22,7 @@ public class PokemonController : ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<List<Pokemon>> GetAll() =>
-        PokemonService.GetAll();
+        _service.GetAll();
 
     /// <summary>
     /// Returns a single Pokemon with the id provided
@@ -31,7 +34,7 @@ public class PokemonController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Pokemon> Get(int id)
     {
-        var pokemon = PokemonService.Get(id);
+        var pokemon = _service.Get(id);
 
         if(pokemon == null)
             return NotFound();
@@ -48,7 +51,7 @@ public class PokemonController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Create(Pokemon pokemon)
     {            
-        PokemonService.Add(pokemon);
+        _service.Add(pokemon);
         return CreatedAtAction(nameof(Create), new { id = pokemon.Id }, pokemon);
     }
 
@@ -66,11 +69,11 @@ public class PokemonController : ControllerBase
         if (id != pokemon.Id)
             return BadRequest();
            
-        var existingPokemon = PokemonService.Get(id);
+        var existingPokemon = _service.Get(id);
         if(existingPokemon is null)
             return NotFound();
    
-        PokemonService.Update(pokemon);           
+        _service.Update(pokemon);           
    
         return NoContent();
     }
@@ -85,12 +88,12 @@ public class PokemonController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Delete(int id)
     {
-        var pokemon = PokemonService.Get(id);
+        var pokemon = _service.Get(id);
    
         if (pokemon is null)
             return NotFound();
        
-        PokemonService.Delete(id);
+        _service.Delete(id);
    
         return NoContent();
     }
